@@ -19,7 +19,7 @@ def generate_frames():
             yield video_chunk
 
 # Generate bin levels once at app start
-@app.route('/home')
+@app.route('/')
 def home():
     # Replace this with actual logic from your ML model and sensors
     detected_class = "Plastic"
