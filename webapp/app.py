@@ -1,6 +1,8 @@
 from flask import Flask, render_template, Response
 import random
 import os
+from flask import Flask, jsonify
+
 
 app = Flask(__name__)
 
@@ -19,6 +21,15 @@ def generate_frames():
             yield video_chunk
 
 # Generate bin levels once at app start
+@app.route('/api/bin_levels')
+def get_bin_levels():
+    bins = [
+        {"id": 1, "fill": random.randint(0, 100)},
+        {"id": 2, "fill": random.randint(0, 100)},
+        {"id": 3, "fill": random.randint(0, 100)}
+    ]
+    return jsonify({"bins": bins})
+
 @app.route('/')
 def home():
     # Replace this with actual logic from your ML model and sensors
@@ -39,26 +50,14 @@ def video_feed():
     return Response(generate_frames(),
                     mimetype='video/mp4')  # Directly serve video as 'video/mp4'
 
-@app.route("/dashboard")
+@app.route('/dashboard')
 def dashboard():
-    bin_names = ['Cardboard', 'Metal', 'Plastic']
-    bins = []
-
-    for name in bin_names:
-        fill_level = random.randint(0, 100)
-        bins.append({
-            'name': name,
-            'fill': fill_level
-        })
-
-    return render_template('dashboard.html', bins=bins)
+    return render_template('dashboard.html')
 
 
 @app.route('/insight/<int:bin_id>')
 def insight(bin_id):
-    # Logic for handling insights for the specific bin
-    return render_template("insight.html", bin_id=bin_id)
-
+    return render_template('insight.html', bin_id=bin_id)
 
 if __name__ == '__main__':
     app.run(debug=True)
