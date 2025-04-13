@@ -30,19 +30,34 @@ def get_bin_levels():
     ]
     return jsonify({"bins": bins})
 
+@app.route('/api/bin_status')
+def bin_status():
+    # Example of bin data with random fill levels and statuses
+    bins = [
+        {'id': 1, 'name': 'Cardboard', 'is_open': random.choice([True, False])},
+        {'id': 2, 'name': 'Metal', 'is_open': random.choice([True, False])},
+        {'id': 3, 'name': 'Plastic', 'is_open': random.choice([True, False])}
+    ]
+    return jsonify({'bins': bins})
+
+@app.route('/api/detection')
+def detection():
+    # Example detection data
+    detected_class = random.choice(['Cardboard', 'Metal', 'Plastic', None])
+    bin_open_type = None
+
+    # If a class is detected, get the corresponding bin
+    if detected_class:
+        bin_open_type = detected_class
+
+    return jsonify({
+        'detected_class': detected_class,
+        'bin_open_status': bin_open_type
+    })
+
 @app.route('/')
 def home():
-    # Replace this with actual logic from your ML model and sensors
-    detected_class = "Plastic"
-    bin_open_status = {
-        "Cardboard": False,
-        "Metal": False,
-        "Plastic": True
-    }
-
-    return render_template("home.html",
-                           detected_class=detected_class,
-                           bin_open_status=bin_open_status)
+    return render_template('home.html')
 
 
 @app.route('/video_feed')
