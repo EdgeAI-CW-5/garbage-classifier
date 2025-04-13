@@ -1,0 +1,67 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #2f2f2f;
+    height: 100vh;
+    padding-top: 20px;
+    color: #fff;
+}
+
+.sidebar-header {
+    font-size: 1.5rem;
+    text-align: center;
+    padding-bottom: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #444;
+}
+
+.sidebar .nav-link {
+    color: #bbb;
+    padding: 10px 20px;
+    transition: 0.3s;
+}
+
+.sidebar .nav-link.active,
+.sidebar .nav-link:hover {
+    color: #fff;
+    background-color: #444;
+    border-left: 4px solid #0d6efd;
+}
+
+.main-content {
+    background-color: #ffffff;
+    min-height: 100vh;
+}
+
+.bin-card {
+    background: linear-gradient(to bottom right, #f2f2f2, #ffffff);
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.bin-card:hover {
+    transform: scale(1.03);
+}
+
+.bin-icon {
+    width: 60px;
+}
+
+.progress-bar {
+    background-color: #0d6efd;
+    transition: width 1.5s ease-in-out;
+}
+
+.animate-bar {
+    animation: slideBar 1s ease-in-out;
+}
+
+@keyframes slideBar {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
