@@ -1,67 +1,77 @@
+/* 🌐 Global Style (unchanged) */
 body {
+    margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background-color: #f9f9f9;
+    background: linear-gradient(to right, #e0f7fa, #f1f8e9);
 }
 
+/* 🧭 New Sidebar Style */
 .sidebar {
-    width: 250px;
-    background-color: #2f2f2f;
+    position: fixed;
+    top: 0;
+    left: 0;
     height: 100vh;
-    padding-top: 20px;
-    color: #fff;
+    width: 240px;
+    padding-top: 40px;
+    background: linear-gradient(to bottom, #0d47a1, #1976d2);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    color: #ffffff;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .sidebar-header {
-    font-size: 1.5rem;
-    text-align: center;
-    padding-bottom: 20px;
-    font-weight: bold;
-    border-bottom: 1px solid #444;
-}
-
-.sidebar .nav-link {
-    color: #bbb;
-    padding: 10px 20px;
-    transition: 0.3s;
-}
-
-.sidebar .nav-link.active,
-.sidebar .nav-link:hover {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 40px;
     color: #fff;
-    background-color: #444;
-    border-left: 4px solid #0d6efd;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
+/* 🧭 Sidebar Navigation Links */
+.nav-link {
+    color: #cfd8dc;
+    font-size: 1.1rem;
+    width: 90%;
+    padding: 12px 20px;
+    margin: 10px 0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-link i {
+    margin-right: 12px;
+    font-size: 1.2rem;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transform: translateX(5px);
+}
+
+.nav-link.active {
+    background-color: #ffffff;
+    color: #0d47a1;
+    font-weight: 600;
+}
+
+.nav-link.active i {
+    color: #0d47a1;
+}
+
+/* 🧾 Main Content */
 .main-content {
+    margin-left: 240px;
+    padding: 40px;
     background-color: #ffffff;
     min-height: 100vh;
+    width: calc(100% - 240px);
 }
-
-.bin-card {
-    background: linear-gradient(to bottom right, #f2f2f2, #ffffff);
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.bin-card:hover {
-    transform: scale(1.03);
-}
-
-.bin-icon {
-    width: 60px;
-}
-
-.progress-bar {
-    background-color: #0d6efd;
-    transition: width 1.5s ease-in-out;
-}
-
-.animate-bar {
-    animation: slideBar 1s ease-in-out;
-}
-
-@keyframes slideBar {
-    from { width: 0; }
-    to { width: 100%; }
-}
-
