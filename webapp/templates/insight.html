@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5 text-center">
+    <h2 class="fw-bold text-primary mb-4">📊 Bin {{ bin_id }} Insights</h2>
+    <p class="lead">This page will show detailed analytics and historical fill data for Bin {{ bin_id }}.</p>
+    
+    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary mt-4">⬅️ Back to Dashboard</a>
+</div>
+{% endblock %}
