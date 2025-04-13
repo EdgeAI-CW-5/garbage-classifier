@@ -3,7 +3,7 @@ body {
 }
 
 .header-gradient {
-    background: linear-gradient(to right, #00c6ff, #0072ff);
+    background: linear-gradient(to right,#0d47a1, #1976d2);
     color: white;
     border-radius: 12px;
 }
