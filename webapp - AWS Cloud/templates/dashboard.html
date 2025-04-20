@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center mb-5 py-4 header-gradient">
+    <h2 class="fw-bold mb-1 animate__animated animate__fadeInDown">
+        <i class="fas fa-trash-alt me-2"></i>Smart Bin Monitoring Dashboard
+    </h2>
+    <p class="lead animate__animated animate__fadeInUp">Real-Time Tracking of Bin Fill Levels Across the Facility</p>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        {% set bin_colors = ['#4caf50', '#ff9800', '#2196f3'] %}
+        {% set bin_names = ['Plastic', 'Metal', 'Cardboard'] %}
+        {% for bin_id in range(1, 4) %}
+        {% set label = bin_names[bin_id - 1] %}
+        {% set fill_data = bin_status[bin_id-1] %}
+        {% set is_full = fill_data.status == 'FULL' %}
+        {% set fill_level = 100 if is_full else (fill_data.fill if fill_data.fill != "N/A" else "N/A") %}
+
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card bin-card shadow-lg text-center p-4" id="binCard{{ bin_id }}">
+                <div class="position-relative mb-3 mx-auto">
+                    <div class="smart-bin-icon">
+                        <svg viewBox="0 0 64 64" class="smart-bin-svg" fill="{{ bin_colors[bin_id-1] }}">
+                            <path d="M20 10v-2a4 4 0 0 1 4-4h16a4 4 0 0 1 4 4v2h12v6H8v-6h12zM16 22v30a6 6 0 0 0 6 6h20a6 6 0 0 0 6-6V22H16zm10 6h4v20h-4V28zm8 0h4v20h-4V28z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <h4 class="mb-3 fw-bold text-primary">{{ label }} Bin</h4>
+
+                <div class="progress-wrapper mb-2">
+                    <div class="progress outer-bar">
+                        {% if fill_level == "N/A" %}
+                        <div id="bin{{ bin_id }}Fill" class="progress-bar inner-bar" role="progressbar" style="width: 0%;">
+                            N/A
+                        </div>
+                        {% else %}
+                        <div id="bin{{ bin_id }}Fill" class="progress-bar inner-bar" role="progressbar" style="width: {{ fill_level }}%;">
+                            {{ fill_level }}%
+                        </div>
+                        {% endif %}
+                    </div>
+                    <p class="text-muted mt-2" id="bin{{ bin_id }}Text">
+                        Fill Level: {{ fill_level }}%
+                    </p>
+                </div>
+
+                {% if is_full %}
+                <div id="alert{{ bin_id }}" class="full-alert">
+                    🚨 Alert! The {{ label }} Bin is FULL! Please empty it immediately!
+                </div>
+                {% endif %}
+
+                <button class="insight-btn" onclick="showInsights({{ bin_id }})">
+                    🔍 View Insights
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+{% endblock %}
