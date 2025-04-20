@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5 text-center">
+    <h2 class="fw-bold text-primary mb-4">📊 {{ bin_label }} Bin Insights</h2>
+
+    <canvas id="distanceChart" width="800" height="400"></canvas>
+    <canvas id="confidenceChart" width="800" height="400" class="mt-5"></canvas>
+
+    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary mt-4">⬅️ Back to Dashboard</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const timestamps = {{ timestamps | tojson }};
+const distances = {{ distances | tojson }};
+const confidences = {{ confidences | tojson }};
+
+// Bin Level Chart
+new Chart(document.getElementById('distanceChart'), {
+    type: 'line',
+    data: {
+        labels: timestamps,
+        datasets: [{
+            label: 'Bin Fill Level (cm)',
+            data: distances,
+            borderColor: 'green',
+            backgroundColor: 'rgba(0,128,0,0.1)',
+            fill: true,
+            tension: 0.3
+        }]
+    }
+});
+
+// Confidence Chart
+new Chart(document.getElementById('confidenceChart'), {
+    type: 'line',
+    data: {
+        labels: timestamps,
+        datasets: [{
+            label: 'Prediction Confidence (%)',
+            data: confidences,
+            borderColor: 'blue',
+            backgroundColor: 'rgba(0,0,255,0.1)',
+            fill: true,
+            tension: 0.3
+        }]
+    }
+});
+</script>
+{% endblock %}
